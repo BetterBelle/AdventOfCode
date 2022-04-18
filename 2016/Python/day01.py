@@ -1,7 +1,7 @@
 def distance():
     card = 0
     endLoc = [0, 0]
-    input = open("2016/inputs/input1.txt")
+    input = open("2016/inputs/day01.txt")
     directions = input.read().split(", ")
     for d in directions:
         dist = int(d[1:])
@@ -25,7 +25,7 @@ def firstDouble():
 	card = 0
 	endLoc = [0,0]
 	storage = []
-	input = open("2016/inputs/input1.txt")
+	input = open("2016/inputs/day01.txt")
 	directions = input.read().split(", ")
 	for d in directions:
 		dist = int(d[1:])

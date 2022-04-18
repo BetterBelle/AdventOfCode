@@ -3,7 +3,7 @@ Incomplete, gotta figure out what's going wrong
 """
 
 def id_sum_real():
-    input = open('2016/inputs/input4.txt')
+    input = open('2016/inputs/day04.txt')
     ans = 0
     for line in input:
         temp_current = line.split('-')[:len(line.split('-'))-1]

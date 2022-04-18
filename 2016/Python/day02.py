@@ -1,5 +1,5 @@
 def code():
-    input = open('2016/inputs/input2.txt')
+    input = open('2016/inputs/day02.txt')
     keypad = [['1','2','3'],['4','5','6'],['7','8','9']]
     position = [1,1]
     code = ''
@@ -19,7 +19,7 @@ def code():
     return code
 
 def spec_code():
-    input = open('2016/inputs/input2.txt')
+    input = open('2016/inputs/day02.txt')
     keypad = [['0','0','1','0','0'],['0','2','3','4','0'],['5','6','7','8','9'],['0','A','B','C','0'],['0','0','D','0','0']]
     position = [2,0]
     code = ''
