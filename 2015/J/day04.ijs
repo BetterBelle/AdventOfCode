@@ -1,0 +1,1 @@
+input =: 1!:1 < '2015/inputs/day03.txt'

@@ -1,4 +1,3 @@
-NB. we reverse it because J does stuff from right to left
 input =: 1!:1 < '2015/inputs/day03.txt'
 
 Note 'Part 1 in one chain'
