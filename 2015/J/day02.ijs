@@ -19,10 +19,10 @@ Note 'Part 1 as one chain'
 Note 'Part 2 as one chain'
     Part 2 requires you to get the cubic feet of volume of each, plus the shortest perimeter (smallest 2 sides doubled and summed)
     /:~"1                   Sort each sublist of sizes
-    ((+: & }:) , */)"1      Big explanation:
-                            (+: & }:) is double(curtail(input)) This gives the two smallest sides doubled
+    ((+: @ }:) , */)"1      Big explanation:
+                            (+: @ }:) is double(curtail(input)) This gives the two smallest sides doubled
                             */ is simply the cubic volume (*/ on input)
                             , catenates the two together because of how function trains work in J
     +/ +/                   sum everything
 )
-] part2 =: +/ +/ ((+: & }:) , */)"1 /:~"1 sizes
+] part2 =: +/ +/ ((+: @ }:) , */)"1 /:~"1 sizes

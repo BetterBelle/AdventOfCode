@@ -21,11 +21,11 @@ Note 'Part 2 in one chain'
                                 (^i.)4: i.4 gives 0 1 2 3, with the ^ gives you 4 ^ 0 1 2 3
                                 0j1   : this turns 4 ^ 0 1 2 3 to 0j1 ^ 0 1 2 3, giving you the four rotations 1 0j1 _1 0j_1
     {~                      This maps each of the 0 1 2 3 from the input into one of the four rotations on index
-    ((-: # input) , 2) $    This takes half the size of the input and a 2, then turns the right into that shape iteratively
+    (2 ,~ -: # input) $     This takes half the size of the input and a 2, then turns the right into that shape iteratively
                             For example, 2 2 $ 0 1 2 3 becomes
                             0 1
                             2 3
-                            For us, this ends up being 4096 2 $ input
+                            For us, this ends up being 4096 2 $ input (it's 4096 2 because ,~ catenates backwards)
                             This creates the two lists of instructions for our santas
     0 ,                     This appends a 0 to the two lists, indicating the starting location
     +/\                     Running sum on both lists of instructions
