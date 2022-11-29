@@ -4,8 +4,8 @@ input =: 1!:1 < '2015/inputs/day04.txt'
 
 Note 'creating the inputs'
     i. 5000000  Creates the numbers from 0 to 5000000 for appending to the input
-    > ;/        Converts everything to cells
-    &.          Applies the left to each element in the right box
+    ;/          Converts everything to cells
+    &. >        Applies the left to each element in the right box, then reboxes everything
     input,":    Catenates the stringified version of the numbers to the right of the input
 )
 search =: (input,":) &. > ;/ i. 5000000
