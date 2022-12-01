@@ -5,4 +5,5 @@ part1 =: {. \:~ +/"1 input
 ]part1 =: {: /:~ +/"1 input
 
 ]part2 =: +/ 3 {. \:~ +/"1 input
-
+part2 =: +/ {: 3]\ /:~ +/"1 input
+part2 =: +/ {. 3]\ \:~ +/"1 input
