@@ -4,6 +4,6 @@ NB. Probably a better way of doing this considering all the repeating code, but 
 part1 =: +/ , > ([: ~. (] }.~ [: -: #) #~ ([: +./ (] {.~ [: -: #) =/ (] }.~ [: -: #)))&.> input
 
 NB. This language is insane
-part2 =: +/ >./"1 +./"2 (1&{ #~ 1&{ =/~ [: ~. {: #~ [: +./ {. =/ {:)"2 > _3]\ input
+part2 =: +/ >./"1 ([: +./ 1&{ #~ 1&{ =/~ [: ~. {: #~ [: +./ {. =/ {:)"2 > _3]\ input
 
 part1;part2
