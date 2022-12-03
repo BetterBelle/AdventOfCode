@@ -1,4 +1,3 @@
-import itertools
 map = {
     'A': 0,
     'B': 1,
