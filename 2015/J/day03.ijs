@@ -12,7 +12,7 @@ Note 'Part 1 in one chain'
     ~.          Nub, i.e. remove duplicates, leaving only houses that have been visited at least once
     #           Count
 )
-] part1 =: # ~. +/\ 0 , (0j1(^i.)4) {~ '^>v<' i. input
+part1 =: # ~. +/\ 0 , (0j1(^i.)4) {~ '^>v<' i. input
 
 Note 'Part 2 in one chain'
     '^>v<' i.               This part turns the four symbols into 0 1 2 3 on matching
@@ -33,4 +33,6 @@ Note 'Part 2 in one chain'
     ~.                      Remove duplicates, leaving only houses that have been visited at least once
     #                       Count
 )
-] part2 =:  # ~. , +/\ 0 , (2 ,~ -: # input) $ (0j1(^i.)4) {~ '^>v<' i. input
+part2 =:  # ~. , +/\ 0 , (2 ,~ -: # input) $ (0j1(^i.)4) {~ '^>v<' i. input
+
+part1;part2

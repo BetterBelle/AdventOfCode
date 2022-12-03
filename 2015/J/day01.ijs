@@ -10,7 +10,7 @@ levels =: <: +: '('=input
 Note 'sum of all for last level'
     +/ levels is just reduce add
 )
-] part1 =: +/ levels 
+part1 =: +/ levels 
 
 Note 'part 2'
     +/\ reduce add on all sublists of levels
@@ -19,4 +19,6 @@ Note 'part 2'
     >: increment that because we want position (+1 of index)
     {. is head (i.e. first element) to give us the first time we reach the basement
 )
-] part2 =: {. >: I. _1 = +/\ levels
+part2 =: {. >: I. _1 = +/\ levels
+
+part1;part2

@@ -22,5 +22,7 @@ Note 'part 1 and 2 in one line'
     i.              Gives the indexes of the matches
     {.              Head i.e. first match
 )
-] part1 =: {. (i. (#~ ('00000' (-:"1) _ 5&{.))) hashes
-] part2 =: {. (i. (#~ ('000000' (-:"1) _ 6&{.))) hashes
+part1 =: {. (i. (#~ ('00000' (-:"1) _ 5&{.))) hashes
+part2 =: {. (i. (#~ ('000000' (-:"1) _ 6&{.))) hashes
+
+part1;part2

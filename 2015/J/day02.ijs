@@ -14,7 +14,7 @@ Note 'Part 1 as one chain'
                         This effectively goes from h*w w*l l*h -> 2*h*w 2*w*l 2*l*h h*w
     +/ +/               Sum everything
 )
-] part1 =: +/ +/ (+: , {.)"1 (2 */\ (, {.))"1 /:~"1 sizes
+part1 =: +/ +/ (+: , {.)"1 (2 */\ (, {.))"1 /:~"1 sizes
 
 Note 'Part 2 as one chain'
     Part 2 requires you to get the cubic feet of volume of each, plus the shortest perimeter (smallest 2 sides doubled and summed)
@@ -25,4 +25,6 @@ Note 'Part 2 as one chain'
                             , catenates the two together because of how function trains work in J
     +/ +/                   sum everything
 )
-] part2 =: +/ +/ ((+: @ }:) , */)"1 /:~"1 sizes
+part2 =: +/ +/ ((+: @ }:) , */)"1 /:~"1 sizes
+
+part1;part2
