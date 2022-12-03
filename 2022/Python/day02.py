@@ -1,3 +1,4 @@
+import itertools
 map = {
     'A': 0,
     'B': 1,
@@ -10,14 +11,22 @@ inp = [[map[line.strip().split(' ')[0]], map[line.strip().split(' ')[1]]] for li
 
 
 def part1():
-    results = list()
-    for match in inp:
-        results.append((match[0] - match[1]) % 3)
+    results = [(match[0] - match[1]) % 3 for match in inp]
     
-    print(results)
+    for i in range(len(results)):
+        if results[i] == 0:
+            results[i] = 1
+        elif results[i] == 1:
+            results[i] = 0
+
+    scores = [result * 3 + choice[1] + 1 for result, choice in zip(results, inp)]
+    return sum(scores)
 
 def part2():
-    pass
+    required = [(match[0] + match[1] - 1) % 3 for match in inp]
+    scores = [match[1] * 3 + require + 1 for match, require in zip(inp, required)]
+    return sum(scores)
+
 
 
 print(part1())
