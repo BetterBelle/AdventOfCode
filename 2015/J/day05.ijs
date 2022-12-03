@@ -47,10 +47,10 @@ Note 'Part 1 in one chain'
     +/ then just gives you the number of nice strings
 )
 
-]part1 =: +/ *./"1 (> +./&.> 2=/\&.> strings) ,. (3<: +/"1 +/"2 =/"1 (;/'aeiou') ,"0"1 0 (> ;/&.> strings)) ,. (-. +./"1 +./"2 =/"1 (;/ 4 2 $ 'abcdpqxy') ,"0"1 0 (> ;/&.> (2]\&.> strings)))
+part1 =: +/ *./"1 (> +./&.> 2=/\&.> strings) ,. (3<: +/"1 +/"2 =/"1 (;/'aeiou') ,"0"1 0 (> ;/&.> strings)) ,. (-. +./"1 +./"2 =/"1 (;/ 4 2 $ 'abcdpqxy') ,"0"1 0 (> ;/&.> (2]\&.> strings)))
 
 
-]part2 =: +/"1 =/"1 (<1 1) ,"0"1 0 (> ;/&.> 2[\&.> 2=/\&.> strings)
+part2 =: +/"1 =/"1 (<1 1) ,"0"1 0 (> ;/&.> 2[\&.> 2=/\&.> strings)
 
 
 2 { =/"1 (> ;/&.> 2]\&.> strings) ,"0"1 0 (> ;/&.> 2]\&.> strings)
