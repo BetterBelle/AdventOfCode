@@ -1,4 +1,4 @@
-input =: > ".&.> > '-'cut&.> > ','cut&.> cutLF 1!:1 < '2022/inputs/day04.txt'
+input =: > ".&.> > '-'cut&.> > ','cut&.> cutLF toJ 1!:1 < '2022/inputs/day04.txt'
 
 
 part1 =: +/ 1>: +/"1 (0> [: -/ /:~)"2 input

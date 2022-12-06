@@ -1,7 +1,7 @@
 a =: ' ', , a. {~ 97 65 +/ i. 26
-input =: a&i.&.> cutLF 1!:1 < '2022/inputs/day03.txt'
+input =: a&i.&.> cutLF toJ 1!:1 < '2022/inputs/day03.txt'
 
-inputv2 =: cutLF 1!:1 < '2022/inputs/day03.txt'
+inputv2 =: cutLF toJ 1!:1 < '2022/inputs/day03.txt'
 
 NB. Probably a better way of doing this considering all the repeating code, but this is good enough
 NB. part1 =: +/ , > ([: ~. (] }.~ [: -: #) #~ ([: +./ (] {.~ [: -: #) =/ (] }.~ [: -: #)))&.> input
