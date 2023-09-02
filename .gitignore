@@ -1,2 +1,9 @@
 # ignore python environment
 /env
+# this ignores files without the . character in them, to ignore executables
+*
+!/**/
+!*.*
+
+# ignore target from rust
+target
