@@ -21,9 +21,9 @@ fn main() {
     match (year, day) {
         (2015, 1) =>  aoc_2015::day01::solve(&filepath),
         (2015, 2) =>  aoc_2015::day02::solve(&filepath),
-        // (2015, 3) =>  aoc_2015::day03::solve(&filepath),
-        // (2015, 4) =>  aoc_2015::day04::solve(&filepath),
-        // (2015, 5) =>  aoc_2015::day05::solve(&filepath),
+        (2015, 3) =>  aoc_2015::day03::solve(&filepath),
+        (2015, 4) =>  aoc_2015::day04::solve(&filepath),
+        (2015, 5) =>  aoc_2015::day05::solve(&filepath),
         // (2015, 6) =>  aoc_2015::day06::solve(&filepath),
         // (2015, 7) =>  aoc_2015::day07::solve(&filepath),
         // (2015, 8) =>  aoc_2015::day08::solve(&filepath),

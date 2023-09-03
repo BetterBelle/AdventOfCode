@@ -1,27 +1,20 @@
-inputFile = open('2015/day05.txt')
-input = inputFile.read().split('\n')
-niceStrings = 0
+import re
 
-#part 1
-for line in input:
-	double = False
-	vowels = 0
-	prevChar = ''
-	if not ("ab" in line or "cd" in line or "pq" in line or "xy" in line):
-		for c in line:
-			if c == 'a' or c == 'e' or c == 'i' or c == 'o' or c == 'u':
-				vowels += 1
-			if prevChar == c:
-				double = True
-				
-			prevChar = c
-			
-		if vowels >= 3 and double == True:
-			niceStrings += 1
-			
-print (niceStrings)
-
-#part 2
 inputFile = open('2015/day05.txt')
-input = inputFile.read().split('\n')
-niceStrings = 0
+part1 = 0
+part2 = 0
+for line in inputFile.read().split('\n'):
+	doubles = len(re.findall(r"(.)\1", line)) >= 1
+	vowels = len(re.findall(r"a|e|i|o|u", line)) >= 3
+	forbidden = len(re.findall(r"ab|cd|pq|xy", line)) == 0
+	squeeze = len(re.findall(r"(.)(?!\1).\1", line)) >= 1
+	repeat_pair = len(re.findall(r"(..).*\1", line)) >= 1
+
+	if doubles and vowels and forbidden:
+		part1 += 1
+	if squeeze and repeat_pair:
+		part2 += 1
+
+
+print(part1)
+print(part2)

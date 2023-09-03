@@ -22,4 +22,8 @@ I use a J extension in VSCode that allows me to load and display the scripts, ag
 
 The rust directory is a cargo project. Just move into the rust directory from the command line and do cargo run.
 
-I'll be adding command line parameters for different days of course.
+To run a specific day (provided it exists), you can do the command
+
+cargo run -- -y (year) -d (day)
+
+and the specific day and year you selected will be run. If none is selected, runs 2015 day 1
