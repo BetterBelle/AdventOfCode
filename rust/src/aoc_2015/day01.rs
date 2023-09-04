@@ -1,38 +1,21 @@
 use std::fs;
 
-pub fn part1(input: &String) -> i32 {
-    let mut floor: i32 = 0;
-    for paren in input.chars() {
-        match paren {
-            '(' => floor += 1,
-            ')' => floor -= 1,
-            _ => ()
-        }
-    }
-
+fn part1(floor_diffs: &Vec<i32>) -> i32 {
+    let floor: i32 = floor_diffs.iter().sum();
     return floor;
 }
 
-pub fn part2(input: &String) -> i32 {
-    let mut floor: i32 = 0;
-    for (i ,paren) in input.chars().enumerate() {
-        match paren {
-            '(' => floor += 1,
-            ')' => floor -= 1,
-            _ => ()
-        } 
-        if floor == -1 {
-            return (i + 1).try_into().unwrap();
-        }
-    }
-
-    return -1;
+fn part2(floor_diffs: &Vec<i32>) -> i32 {
+    let floors_cumulative: Vec<i32> = floor_diffs.iter().scan(0, |acc: &mut i32, x: &i32| { *acc += x; Some(*acc) }).collect();
+    let step_in_basement: i32 = floors_cumulative.iter().position(|x: &i32| *x == -1).unwrap() as i32;
+    
+    return step_in_basement + 1;
 }
 
 pub fn solve(filepath: &String) {
-    let input: String = fs::read_to_string(filepath)
-        .expect("Should have read the file.");
+    let input: String = fs::read_to_string(filepath).unwrap();
 
-    println!("Part 1: {}", part1(&input));
-    println!("Part 2: {}", part2(&input));
+    let floor_diffs: Vec<i32> = input.chars().into_iter().map(|x: char| if x == '(' { 1 } else { -1 }).collect();
+    println!("Part 1: {}", part1(&floor_diffs));
+    println!("Part 2: {}", part2(&floor_diffs));
 }

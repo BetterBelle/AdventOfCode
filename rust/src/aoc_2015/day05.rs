@@ -2,7 +2,7 @@ use std::fs;
 use regex;
 use fancy_regex;
 
-pub fn part1(input: &String) -> i32 {
+fn part1(input: &String) -> i32 {
     let find_vowels: regex::Regex = regex::Regex::new(r"a|e|i|o|u").unwrap();
     let find_doubles: fancy_regex::Regex = fancy_regex::Regex::new(r"(.)\1").unwrap();
     let find_invalid: regex::Regex = regex::Regex::new(r"ab|cd|pq|xy").unwrap();
@@ -19,7 +19,7 @@ pub fn part1(input: &String) -> i32 {
     return nice;
 }
 
-pub fn part2(input: &String) -> i32 {
+fn part2(input: &String) -> i32 {
     let find_squish: fancy_regex::Regex = fancy_regex::Regex::new(r"(.)(?!\1).\1").unwrap();
     let find_distinct_repeated_pair: fancy_regex::Regex = fancy_regex::Regex::new(r"(..).*\1").unwrap();
     let mut nice = 0;
@@ -36,8 +36,7 @@ pub fn part2(input: &String) -> i32 {
 }
 
 pub fn solve(filepath: &String) {
-    let input: String = fs::read_to_string(filepath)
-        .expect("Should have read the file.");
+    let input: String = fs::read_to_string(filepath).unwrap();
 
     println!("Part 1: {}", part1(&input));
     println!("Part 2: {}", part2(&input));
