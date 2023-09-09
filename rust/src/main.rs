@@ -28,7 +28,7 @@ fn main() {
         (2015, 7) =>  aoc_2015::day07::solve(&filepath),
         (2015, 8) =>  aoc_2015::day08::solve(&filepath),
         (2015, 9) =>  aoc_2015::day09::solve(&filepath),
-        // (2015, 10) => aoc_2015::day10::solve(&filepath),
+        (2015, 10) => aoc_2015::day10::solve(&filepath),
         // (2015, 11) => aoc_2015::day11::solve(&filepath),
         // (2015, 12) => aoc_2015::day12::solve(&filepath),
         // (2015, 13) => aoc_2015::day13::solve(&filepath),
