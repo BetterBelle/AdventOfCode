@@ -37,41 +37,58 @@ fn part2(input: &String) -> i32 {
     let mut depth_track: Vec<Record> = vec![];
     let mut sum = 0;
 
-    println!("{:?}", matched_as_string);
-
     for matched in matched_as_string {
         match matched {
-            // red is ignored if in an object, but not an array 
+            // red is ignored if in an object, but not an array
             "red" => {
                 let mut last_record = depth_track.pop().unwrap();
                 if last_record.obj == "obj" {
-                    last_record.red = true;    
+                    last_record.red = true;
                 }
                 depth_track.push(last_record);
             }
             "{" => {
-                depth_track.push(Record{ 
-                    obj: String::from("obj"), 
-                    sum: 0, 
-                    red: false
+                depth_track.push(Record {
+                    obj: String::from("obj"),
+                    sum: 0,
+                    red: false,
                 });
-            },
+            }
             "}" => {
                 // if it's a non-red record depth that's being closed, we
-                // add it's sum to the previous depth and 
+                // add it's sum to the previous depth and
                 let last_record = depth_track.pop().unwrap();
                 if !last_record.red {
-                    let mut base_record = depth_track.pop().unwrap();
-                    base_record.sum += last_record.sum;
-                    depth_track.push(base_record);
+                    match depth_track.pop() {
+                        Some(mut record) => {
+                            record.sum += last_record.sum;
+                            depth_track.push(record);
+                        }
+                        None => {
+                            sum += last_record.sum;
+                        }
+                    };
                 }
             }
-            "[" => depth_track.push(Record{
+            "[" => depth_track.push(Record {
                 obj: String::from("arr"),
                 sum: 0,
-                red: false
+                red: false,
             }),
-            "]" => (),
+            "]" => {
+                // pop the record, then add to the previous one
+                // if this is the last record on the stack, instead just add to the sum
+                let last_record = depth_track.pop().unwrap();
+                match depth_track.pop() {
+                    Some(mut record) => {
+                        record.sum += last_record.sum;
+                        depth_track.push(record);
+                    }
+                    None => {
+                        sum += last_record.sum;
+                    }
+                };
+            }
             // this means we matched a number
             _ => {
                 let num = matched.parse::<i32>().unwrap();
