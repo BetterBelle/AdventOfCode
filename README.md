@@ -8,11 +8,12 @@ Feel free to create your own branch for your own personal use!
 
 ## Python Solutions
 
-Python solutions are fun from the root. So running them from command line would look something like
+Python solutions are run from the root. So running them from command line would look something like
 
 python python/2015/day01.py
 
-This is just because I run them from the Python: Run Python File from Terminal in VSCode from the root.
+When running python programs, because I was using relative filepaths from the root in VSCode, python needs to run from the root to see the input files.
+If running from command line, you could easily change the filepaths to be relative from the python directory and access them this way.
 
 ## J Solutions
 
@@ -20,10 +21,10 @@ I use a J extension in VSCode that allows me to load and display the scripts, ag
 
 ## Rust Solutions
 
-The rust directory is a cargo project. Just move into the rust directory from the command line and do cargo run.
+The rust directory is a cargo project. Move into the rust directory from the command line and do cargo run.
 
 To run a specific day (provided it exists), you can do the command
 
 cargo run -- -y (year) -d (day)
 
-and the specific day and year you selected will be run. If none is selected, runs 2015 day 1
+and the specific day and year you selected will be run. If none is selected, runs 2015 day 1.
