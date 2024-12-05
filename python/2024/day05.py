@@ -19,12 +19,12 @@ for rule in rule_list:
         RULES[first].append(second)
 
 
-def part1(rules: dict[list], updates: list[list[int]]) -> int:
+def part1() -> int:
     result = 0
-    for update in updates:
+    for update in UPDATES:
         is_valid = True
         for i, page in enumerate(update[:-1]):
-            if page in rules[update[i+1]]:
+            if page in RULES[update[i+1]]:
                 is_valid = False
 
         if is_valid:
@@ -33,12 +33,12 @@ def part1(rules: dict[list], updates: list[list[int]]) -> int:
     return result
 
 
-def part2(rules: dict[list], updates: list[list[int]]) -> int: 
+def part2() -> int: 
     result = 0
-    for update in updates:
+    for update in UPDATES:
         is_valid = True
         for i, page in enumerate(update[:-1]):
-            if page in rules[update[i+1]]:
+            if page in RULES[update[i+1]]:
                 is_valid = False
 
         if not is_valid:
@@ -49,7 +49,7 @@ def part2(rules: dict[list], updates: list[list[int]]) -> int:
                 # go through every page in the correctly ordered update
                 for i, correct_page in enumerate(correct_update):
                     # if page does not come after the correct one, we insert it
-                    if page not in rules[correct_page]:
+                    if page not in RULES[correct_page]:
                         correct_update.insert(i, page)
                         inserted = True
                         break
@@ -63,5 +63,5 @@ def part2(rules: dict[list], updates: list[list[int]]) -> int:
 
     return result
 
-print(part1(RULES.copy(), UPDATES.copy()))
-print(part2(RULES.copy(), UPDATES.copy()))
+print(part1())
+print(part2())
