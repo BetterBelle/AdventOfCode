@@ -1,119 +1,126 @@
 INPUT: list[int] = [int(num) for num in open("2024/day09.txt").read().strip()]
 
-def print_memory(memory: list[int]):
-    print(''.join(['.' if n == 0 else str(n-1) for n in memory]))
+class File():
+    def __init__(self, id: int, start: int, end: int):
+        self.id: int = id
+        self.mem_locations = [i for i in range(start, end)]
 
-def generate_memory() -> list[int]:
-    memory = []
-    id = 1
-    for i, size in enumerate(INPUT):
-        if i % 2 == 0:
-            for _ in range(size):
-                memory.append(id)
-            id += 1
-        else:
-            for _ in range(size):
-                memory.append(0)
+    def size(self):
+        return len(self.mem_locations)
 
-    return memory
+    def move_memory_locations(self, targets: list[int]) -> list[int]:
+        if len(targets) != self.size():
+            raise NotImplemented()
+
+        old_locs = self.mem_locations.copy()
+        self.mem_locations = targets.copy()
+        return old_locs
+
+    def checksum(self):
+        return sum(self.mem_locations) * self.id
+
+    def start(self):
+        return self.mem_locations[0]
+
+    def end(self):
+        return self.mem_locations[-1]
+
+    def __repr__(self):
+        return f'{self.id}: {self.mem_locations}'
 
 
-def move_memory(memory: list[int]) -> list[int]:
-    free_space = 0
-    to_move = len(memory) - 1
-    new_memory = memory.copy()
-
-    while True:
-        # move free_space to next free space 
-        while new_memory[free_space] != 0:
-            free_space += 1
-
-        # find next item to move 
-        while new_memory[to_move] == 0:
-            to_move -= 1
-
-        # the next free space is after the current memory to move means
-        # the memory is one contiguous chunk; we're done
-        if to_move < free_space:
-            break
-
-        # swap
-        new_memory[free_space] = new_memory[to_move]
-        new_memory[to_move] = 0
-
-    return new_memory
-
-def move_blocks(memory: list[int]) -> list[int]:
-    to_move_end = len(memory) - 1
-    new_memory = memory.copy()
-
-    while to_move_end >= 0:
-        # find next memory block to move
-        while new_memory[to_move_end] == 0:
-            to_move_end -= 1
-
-        # found memory block to move, find start 
-        to_move_start = to_move_end 
-        # when this isn't true, we've reached the end of the memory block
-        while new_memory[to_move_start - 1] == new_memory[to_move_end]:
-            to_move_start -= 1
-
-        block_to_move_size = to_move_end - to_move_start + 1
-        # find next free memory block 
-        free_block_start = 0
-        # if the free block's start comes after the block to move's start, there's no available space
-        # therefore only search if free block start comes before to move start
-        while free_block_start < to_move_start:
-            while new_memory[free_block_start] != 0:
-                free_block_start += 1
-
-            if free_block_start > to_move_start:
-                break
-
-            # free block found, get the end of the free block
-            free_block_end = free_block_start
-            # when this isn't true, we've reached the end of the free block
-            while new_memory[free_block_end + 1] == 0:
-                free_block_end += 1
-
-            # found end of block, ensure large enough to fit block to move
-            if free_block_end - free_block_start + 1 >= block_to_move_size:
-                # move the block
-                while to_move_end >= to_move_start:
-                    new_memory[free_block_start] = new_memory[to_move_end]
-                    new_memory[to_move_end] = 0
-                    free_block_start += 1
-                    to_move_end -= 1
-
-                # when moved, set the free block start to the move start to trigger loop end
-                free_block_start = to_move_start
+class FileSystem():
+    def __init__(self):
+        self.files: list[File] = []
+        self.free_memory: list[int] = []
+        self.size = 0
+        idx = 0
+        id = 0
+        for i, size in enumerate(INPUT):
+            if i % 2 == 0:
+                self.files.append(File(id, idx, idx + size))
+                id += 1
             else:
-                # if not large enough, continue searching for valid free block
-                # starting from the free block's end + 1
-                free_block_start = free_block_end + 1
+                for loc in range(idx, idx + size):
+                    self.free_memory.append(loc)
 
-        # whether the block was moved or not
-        # we move the to move end to the start of the block - 1 to avoid re-checking the 
-        # same section of memory 
-        to_move_end = to_move_start - 1
+            idx += size
+            self.size += size
 
-    return new_memory
+    def free_blocks(self) -> list[list[int]]:
+        free_blocks = []
+        current_block = [self.free_memory[0]]
+        for free in self.free_memory[1:]:
+            if current_block[-1] == free - 1:
+                current_block.append(free)
+            else:
+                free_blocks.append(current_block)
+                current_block = [free]
+        return free_blocks
 
+    def reorganize_contiguous(self):
+        # start with last file 
+        for file in reversed(self.files):
+            # the targets are the lowest memory spaces within the free space 
+            # and the current file
+            target_locs = self.free_memory[:file.size()] + file.mem_locations
+            target_locs.sort()
+            target_locs = target_locs[:file.size()]
+            # only move the file if the beginning of the target locations comes before
+            # the start of the file
+            if target_locs[0] < file.start():
+                old_locations = file.move_memory_locations(target_locs)
+                for new_mem_loc in file.mem_locations:
+                    if new_mem_loc in self.free_memory:
+                        self.free_memory.remove(new_mem_loc)
 
-def calculate_checksum(memory: list[int]):
-    res = 0
-    for idx, id in enumerate(memory):
-        if id != 0:
-            res += idx * (id - 1)
+                # determine the newly free spots; 
+                # the old locations which aren't in the targets 
+                newly_free = [n for n in old_locations if n not in file.mem_locations]
+                self.free_memory.extend(newly_free)
+                self.free_memory.sort()
 
-    return res
+    def reorganize_blocks(self):
+        for file in reversed(self.files):
+            # the targets are the smallest, contiguous memory spaces large enough to fit 
+            # the file within them in the free memory space 
+            for block in self.free_blocks():
+                if len(block) >= file.size() and block[0] < file.mem_locations[0]:
+                    target_locs = block[:file.size()]
+                    old_locs = file.move_memory_locations(target_locs)
+                    for new_mem_loc in file.mem_locations:
+                        if new_mem_loc in self.free_memory:
+                            self.free_memory.remove(new_mem_loc)
 
+                    newly_free = [n for n in old_locs if n not in file.mem_locations]
+                    self.free_memory.extend(newly_free)
+                    self.free_memory.sort()
+                    break
 
-memory = generate_memory()
-part_one_memory = move_memory(memory)
-part_two_memory = move_blocks(memory)
-print(calculate_checksum(part_one_memory))
-print(calculate_checksum(part_two_memory))
+    def calculate_checksum(self):
+        res = 0
+        for file in self.files:
+            res += file.checksum()
+        return res
+
+    def __repr__(self):
+        mem_repr = ['' for _ in range(self.size)]
+        for file in self.files:
+            for idx in file.mem_locations:
+                mem_repr[idx] = str(file.id)
+
+        for loc in self.free_memory:
+            mem_repr[loc] = '.'
+
+        return ''.join(mem_repr)
+            
+
+filesystem = FileSystem()
+filesystem.reorganize_contiguous()
+print(filesystem.calculate_checksum())
+filesystem = FileSystem()
+filesystem.reorganize_blocks()
+print(filesystem.calculate_checksum())
 
 
 
